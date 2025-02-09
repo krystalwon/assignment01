@@ -8,6 +8,7 @@ on:
       - 'query01.sql'
       - '__tests__/test_query01.js'
       - '__tests__/expected_results/query01*'
+      - '.github/workflows/test-query01.yml'
 
 jobs:
   build:
@@ -38,11 +39,15 @@ jobs:
     - name: Check out the code
       uses: actions/checkout@v3
 
+    - name: Lowercase the Repository Name
+      id: reponame
+      run: INPUT=${{ github.repository }} echo "::set-output name=lowercase::${INPUT,,}"
+
     - name: Run the test(s)
       uses: addnab/docker-run-action@v3
       with:
         registry: gcr.io
-        image: ${{ github.repository.lowercase }}:latest
+        image: ${{ steps.reponame.outputs.lowercase }}:latest
         options: >-
           -v ${{ github.workspace }}:/workspace/assignment01
           -e POSTGRES_USER=postgres POSTGRES_PASS=postgres POSTGRES_HOST=db POSTGRES_PORT=5432 POSTGRES_NAME=postgres
