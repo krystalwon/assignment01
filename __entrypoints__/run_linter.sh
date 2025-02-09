@@ -10,4 +10,4 @@ source /workspace/env/bin/activate
 
 # Run the linter
 cd ${ENTRYPOINTDIR}/..
-npm run lint assignment01
+npm run lint "$@"
