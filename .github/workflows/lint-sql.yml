@@ -38,7 +38,7 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         registry: gcr.io
-        image: ${{ github.repository }}/lint-and-test:latest
+        image: ${{ github.repository.lowercase }}:latest
         options: >-
-          -v ${{ github.workspace }}:/assignment01
+          -v ${{ github.workspace }}:/workspace/assignment01
         run: /workspace/assignment01/__entrypoints__/run_linter.sh .

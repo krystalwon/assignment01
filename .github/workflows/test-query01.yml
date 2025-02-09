@@ -4,6 +4,10 @@ name: Test Query 01
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'query01.sql'
+      - '__tests__/test_query01.js'
+      - '__tests__/expected_results/query01*'
 
 jobs:
   build:
@@ -38,9 +42,9 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         registry: gcr.io
-        image: ${{ github.repository }}/lint-and-test:latest
+        image: ${{ github.repository.lowercase }}:latest
         options: >-
-          -v ${{ github.workspace }}:/assignment01
+          -v ${{ github.workspace }}:/workspace/assignment01
           -e POSTGRES_USER=postgres POSTGRES_PASS=postgres POSTGRES_HOST=db POSTGRES_PORT=5432 POSTGRES_NAME=postgres
         run: >-
           /workspace/assignment01/__entrypoints__/run_tests.sh
