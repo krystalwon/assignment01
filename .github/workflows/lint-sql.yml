@@ -40,7 +40,7 @@ jobs:
 
     - name: Lowercase the Repository Name
       id: reponame
-      run: INPUT=${{ github.repository }} echo "::set-output name=lowercase::${INPUT,,}"
+      run: INPUT=${{ github.repository }} echo "lowercase=${INPUT,,}" >> "$GITHUB_OUTPUT"
 
     - name: Run the test(s)
       uses: addnab/docker-run-action@v3
