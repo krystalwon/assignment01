@@ -51,5 +51,5 @@ jobs:
 
     - name: Run the test(s)
       run: |
-        __entrypoints__/run_tests.sh  \
+        __entrypoints__/run_tests.sh -- \
           --testMatch ${GITHUB_WORKSPACE}/__tests__/test_query01.js
