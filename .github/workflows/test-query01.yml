@@ -69,14 +69,16 @@ jobs:
 
     - name: Run the test(s)
       run: >-
-        docker run
-          -v ${{ github.workspace }}:/workspace/assignment01
-          -e
-            POSTGRES_USER=postgres
-            POSTGRES_PASS=postgres
-            POSTGRES_HOST=db
-            POSTGRES_PORT=5432
-            POSTGRES_NAME=postgres
-          ghcr.io/${{ steps.reponame.outputs.lowercase }}:main
-          /workspace/assignment01/__entrypoints__/run_tests.sh
+        docker run \
+          -v ${{ github.workspace }}:/workspace/assignment01 \
+          -e \
+            POSTGRES_USER=postgres \
+            POSTGRES_PASS=postgres \
+            POSTGRES_HOST=db \
+            POSTGRES_PORT=5432 \
+            POSTGRES_NAME=postgres \
+          \
+          ghcr.io/${{ steps.reponame.outputs.lowercase }}:main \
+          \
+          /workspace/assignment01/__entrypoints__/run_tests.sh \
             __tests__/test_query01.js

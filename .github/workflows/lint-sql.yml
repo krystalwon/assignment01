@@ -68,8 +68,10 @@ jobs:
         key: ${{ runner.os }}-assignment01-image-${{ steps.reponame.outputs.lowercase }}
 
     - name: Lint the SQL files
-      run: >-
-        docker run
-          -v ${{ github.workspace }}:/workspace/assignment01
-          ghcr.io/${{ steps.reponame.outputs.lowercase }}:main
+      run: |
+        docker run \
+          -v ${{ github.workspace }}:/workspace/assignment01 \
+          \
+          ghcr.io/${{ steps.reponame.outputs.lowercase }}:main \
+          \
           /workspace/assignment01/__entrypoints__/run_linter.sh .
