@@ -71,12 +71,11 @@ jobs:
       run: >-
         docker run \
           -v ${{ github.workspace }}:/workspace/assignment01 \
-          -e \
-            POSTGRES_USER=postgres \
-            POSTGRES_PASS=postgres \
-            POSTGRES_HOST=db \
-            POSTGRES_PORT=5432 \
-            POSTGRES_NAME=postgres \
+          -e POSTGRES_USER=postgres \
+          -e POSTGRES_PASS=postgres \
+          -e POSTGRES_HOST=db \
+          -e POSTGRES_PORT=5432 \
+          -e POSTGRES_NAME=postgres \
           \
           ghcr.io/${{ steps.reponame.outputs.lowercase }}:main \
           \
