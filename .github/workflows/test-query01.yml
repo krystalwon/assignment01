@@ -43,18 +43,40 @@ jobs:
       id: reponame
       run: INPUT=${{ github.repository }} bash -c 'echo "lowercase=${INPUT@L}"' >> "$GITHUB_OUTPUT"
 
-    - name: Run the test(s)
-      uses: addnab/docker-run-action@v3
+    - name: Restore the existing Docker image from cache
+      id: image-restore
+      uses: actions/cache/restore@v4
       with:
-        image: ghcr.io/${{ steps.reponame.outputs.lowercase }}:main
-        options: >-
-          -v ${{ github.workspace }}:/workspace/assignment01
-          -e
-            POSTGRES_USER=postgres
-            POSTGRES_PASS=postgres
-            POSTGRES_HOST=db
-            POSTGRES_PORT=5432
-            POSTGRES_NAME=postgres
-        run: >-
-          /workspace/assignment01/__entrypoints__/run_tests.sh
-          __tests__/test_query01.js
+        path: assignment01-image.tar
+        key: ${{ runner.os }}-assignment01-image-${{ steps.reponame.outputs.lowercase }}
+
+    - name: Load the Docker image from cache
+      run: docker load -i assignment01-image.tar
+
+    - name: Pull the lint and test Docker image (in case update is needed)
+      run: |
+        docker pull ghcr.io/${{ steps.reponame.outputs.lowercase }}:main && \
+        docker save ghcr.io/${{ steps.reponame.outputs.lowercase }}:main > assignment01-image.tar
+
+    - name: Save the latest Docker image to cache
+      id: image-save
+      uses: actions/cache/save@v4
+      with:
+        path: assignment01-image.tar
+        key: ${{ runner.os }}-assignment01-image-${{ steps.reponame.outputs.lowercase }}
+
+    - name: Run the test(s)
+      run: >-
+        docker run
+        -v ${{ github.workspace }}:/workspace/assignment01
+        -e
+          POSTGRES_USER=postgres
+          POSTGRES_PASS=postgres
+          POSTGRES_HOST=db
+          POSTGRES_PORT=5432
+          POSTGRES_NAME=postgres
+
+        ghcr.io/${{ steps.reponame.outputs.lowercase }}:main
+
+        /workspace/assignment01/__entrypoints__/run_tests.sh
+        __tests__/test_query01.js
