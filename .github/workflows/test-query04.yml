@@ -20,7 +20,7 @@ jobs:
     # https://docs.github.com/en/actions/guides/about-service-containers
     # https://docs.github.com/en/actions/guides/creating-postgresql-service-containers
     services:
-      postgres:
+      db:
         image: postgis/postgis
         env:
           POSTGRES_PASSWORD: postgres
