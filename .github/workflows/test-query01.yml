@@ -15,7 +15,9 @@ jobs:
 
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository }}:main
+      # Hardcoding the image name here. Would rather use ${{ github.repository }},
+      # but there may not be any uppercase characters in the name.
+      image: ghcr.io/weitzman-musa-geocloud/assignment01:main
       env:
         POSTGRES_USER: postgres
         POSTGRES_PASS: postgres
