@@ -46,11 +46,15 @@ jobs:
     - name: Run the test(s)
       uses: addnab/docker-run-action@v3
       with:
-        registry: ghcr.io
-        image: ${{ steps.reponame.outputs.lowercase }}:main
+        image: ghcr.io/${{ steps.reponame.outputs.lowercase }}:main
         options: >-
           -v ${{ github.workspace }}:/workspace/assignment01
-          -e POSTGRES_USER=postgres POSTGRES_PASS=postgres POSTGRES_HOST=db POSTGRES_PORT=5432 POSTGRES_NAME=postgres
+          -e
+            POSTGRES_USER=postgres
+            POSTGRES_PASS=postgres
+            POSTGRES_HOST=db
+            POSTGRES_PORT=5432
+            POSTGRES_NAME=postgres
         run: >-
           /workspace/assignment01/__entrypoints__/run_tests.sh
           __tests__/test_query01.js

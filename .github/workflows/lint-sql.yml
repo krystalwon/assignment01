@@ -46,8 +46,7 @@ jobs:
     - name: Run the test(s)
       uses: addnab/docker-run-action@v3
       with:
-        registry: ghcr.io
-        image: ${{ steps.reponame.outputs.lowercase }}:main
+        image: ghcr.io/${{ steps.reponame.outputs.lowercase }}:main
         options: >-
           -v ${{ github.workspace }}:/workspace/assignment01
         run: /workspace/assignment01/__entrypoints__/run_linter.sh .
