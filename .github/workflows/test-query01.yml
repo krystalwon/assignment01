@@ -54,4 +54,4 @@ jobs:
     - name: Run the test(s)
       run: |
         __entrypoints__/run_tests.sh \
-          __tests__/test_query01.js
+          ${{ github.workspace }}/__tests__/test_query01.js
