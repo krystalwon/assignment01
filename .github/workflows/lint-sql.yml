@@ -51,7 +51,9 @@ jobs:
         key: ${{ runner.os }}-assignment01-image-${{ steps.reponame.outputs.lowercase }}
 
     - name: Load the Docker image from cache
-      run: docker load -i assignment01-image.tar
+      run: |
+        docker load -i assignment01-image.tar || \
+        echo "No cache found, building from scratch"
 
     - name: Pull the lint and test Docker image (in case update is needed)
       run: |
