@@ -45,7 +45,7 @@ jobs:
     - name: Run the test(s)
       uses: addnab/docker-run-action@v3
       with:
-        registry: gcr.io
+        registry: ghcr.io
         image: ${{ steps.reponame.outputs.lowercase }}:latest
         options: >-
           -v ${{ github.workspace }}:/workspace/assignment01
