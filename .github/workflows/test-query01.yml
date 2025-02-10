@@ -51,5 +51,7 @@ jobs:
 
     - name: Run the test(s)
       run: |
+        pwd && \
+        ls -la && \
         __entrypoints__/run_tests.sh \
           ${GITHUB_WORKSPACE}/__tests__/test_query01.js
