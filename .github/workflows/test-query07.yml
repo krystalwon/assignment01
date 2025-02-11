@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: [ '**07**' ]
+    paths: [ '**/run_tests.sh', '**07**' ]
 
 jobs:
   build:
