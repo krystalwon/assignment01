@@ -1,11 +1,8 @@
-# Docker container method borrowed from https://aschmelyun.com/blog/using-docker-run-inside-of-github-actions/
-
 name: Test Query 01
 
 on:
   pull_request:
     branches: [ main ]
-    paths: [ '**01**' ]
   push:
     branches: [ main ]
     paths: [ '**01**' ]
@@ -53,4 +50,4 @@ jobs:
       run: |
         __entrypoints__/run_tests.sh -- \
           --rootDir ${GITHUB_WORKSPACE} \
-          --testMatch __tests__/test_query01.js
+          __tests__/test_query01.js
