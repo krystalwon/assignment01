@@ -7,4 +7,13 @@
     distance. Round to the nearest fifty meters.
 */
 
--- Enter your SQL query here
+SELECT 
+    id,
+    name,
+    ST_Distance(geog, ST_SetSRID(ST_MakePoint(-75.192584, 39.952415), 4326)::geography) AS distance_meters
+FROM 
+    indego.station_statuses
+WHERE
+    geog IS NOT NULL
+ORDER BY 
+    id;
