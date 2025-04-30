@@ -13,7 +13,9 @@ FROM
     indego.trips_2021_q3
 WHERE 
     duration < 600
+
 UNION ALL
+
 SELECT 
     2022 AS trip_year,
     3 AS trip_quarter,
@@ -21,4 +23,6 @@ SELECT
 FROM 
     indego.trips_2022_q3
 WHERE 
-    duration < 600;
+    duration < 600
+ORDER BY
+    trip_year;
